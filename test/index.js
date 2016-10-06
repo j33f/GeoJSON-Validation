@@ -24,7 +24,7 @@ describe("GeoJSON Objects", function(){
     });
 
     describe("type member", function(){
-        it('must be one of: "Point", "MultiPoint", "LineString", "MultiLineString", "Polygon", "MultiPolygon", "GeometryCollection", "Feature", or "FeatureCollection"', function() {
+        it('must be one of: "point", "multipoint", "linestring", "multilinestring", "polygon", "multipolygon", "geometrycollection", "Feature", or "FeatureCollection"', function() {
             
             gj = {type: "point"};
             assert.equal(false, GSV.isGeoJSONObject(gj));
@@ -34,7 +34,7 @@ describe("GeoJSON Objects", function(){
     describe("Geometry Objects", function(){
 
         describe("type member", function(){
-            it('must be one of "Point", "MultiPoint", "LineString", "MultiLineString", "Polygon", "MultiPolygon", or "GeometryCollection"', function() {
+            it('must be one of "point", "multipoint", "linestring", "multilinestring", "polygon", "multipolygon", or "geometrycollection"', function() {
                 
                 gj = {type: "Feature"};
                 assert.equal(false, GSV.isGeometryObject(gj));
@@ -42,49 +42,49 @@ describe("GeoJSON Objects", function(){
         });
 
 
-        describe("Point", function(){
+        describe("point", function(){
             it('must be a valid Point Object', function() {
-               gj = {type: "Point", coordinates: [2,3]};
+               gj = {type: "point", coordinates: [2,3]};
                assert(GSV.isPoint(gj));
             });
 
-            it('member type must be "Point"', function() {
-               gj = {type: "Polygon", coordinates: [2,3]};
+            it('member type must be "point"', function() {
+               gj = {type: "polygon", coordinates: [2,3]};
                assert.equal(false, GSV.isPoint(gj));
             });
 
             it('must have a member with the name "coordinates"', function(){
-               gj = {type: "Point", coordinate: [2,3]};
+               gj = {type: "point", coordinate: [2,3]};
                assert.equal(false, GSV.isPoint(gj));
             });
 
             describe("type coordinates", function(){
                 it('must be a single position', function() {
-                   gj = {type: "Point", coordinates: [2]};
+                   gj = {type: "point", coordinates: [2]};
                    assert.equal(false, GSV.isPoint(gj));
                 });
             });
         });
 
-        describe("MultiPoint", function(){
+        describe("multipoint", function(){
             it('must be a valid MultiPoint Object', function() {
-               gj = {type: "MultiPoint", coordinates: [[2,3],[5,6]]};
+               gj = {type: "multipoint", coordinates: [[2,3],[5,6]]};
                assert(GSV.isMultiPoint(gj));
             });
 
-            it('member type must be "MultiPoint"', function() {
-               gj = {type: "Point", coordinates: [[2,3],[5,6]]};
+            it('member type must be "multipoint"', function() {
+               gj = {type: "point", coordinates: [[2,3],[5,6]]};
                assert.equal(false, GSV.isMultiPoint(gj));
             });
 
             it('must have a member with the name "coordinates"', function(){
-               gj = {type: "MultiPoint", coordinate: [2,3]};
+               gj = {type: "multipoint", coordinate: [2,3]};
                assert.equal(false, GSV.isPoint(gj));
             });
 
             describe("type coordinates", function(){
                 it('must be an array of positions', function() {
-                   gj = {type: "MultiPoint", coordinates: [[2,3],[5]]};
+                   gj = {type: "multipoint", coordinates: [[2,3],[5]]};
                    assert.equal(false, GSV.isMultiPoint(gj));
                 });
             });
@@ -94,7 +94,7 @@ describe("GeoJSON Objects", function(){
 
             it('must be a valid LineString Object', function() {
                 var ValidLineString = {
-                    "type": "LineString",
+                    "type": "linestring",
                     "coordinates": [
                         [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
                         ]
@@ -102,24 +102,24 @@ describe("GeoJSON Objects", function(){
                assert(GSV.isLineString(ValidLineString));
             });
 
-            it('member type must be "LineString"', function() {
+            it('member type must be "linestring"', function() {
                gj = {type: "lineString", coordinates: [[2,3],[5,6]]};
                assert.equal(false, GSV.isLineString(gj));
             });
 
             it('must have a member with the name "coordinates"', function(){
-               gj = {type: "LineString", coordinate: [[102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]]};
+               gj = {type: "linestring", coordinate: [[102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]]};
                assert.equal(false, GSV.isLineString(gj));
             });
 
             describe("type coordinates", function(){
                 it('must be an array of positions', function() {
-                   gj = {type: "LineString", coordinate: [[2,3],[5]]};
+                   gj = {type: "linestring", coordinate: [[2,3],[5]]};
                    assert.equal(false, GSV.isLineString(gj));
                 });
 
                 it('must be at least two elements', function() {
-                   gj = {type: "LineString", coordinates: [[2,3]]};
+                   gj = {type: "linestring", coordinates: [[2,3]]};
                    assert.equal(false, GSV.isLineString(gj));
                 });
             });
@@ -129,7 +129,7 @@ describe("GeoJSON Objects", function(){
 
             it('must be a valid MutiLineString Object', function() {
                 var validMutlineString = { 
-                    "type": "MultiLineString",
+                    "type": "multilinestring",
                     "coordinates": [
                       [ [100.0, 0.0], [101.0, 1.0] ],
                       [ [102.0, 2.0], [103.0, 3.0] ]
@@ -153,7 +153,7 @@ describe("GeoJSON Objects", function(){
             it('must have a member with the name "coordinates"', function(){
 
                 var invalidMutlineString = { 
-                    "type": "MultiLineString",
+                    "type": "multilinestring",
                     "coordinate": [
                       [ [100.0, 0.0], [101.0, 1.0] ],
                       [ [102.0, 2.0], [103.0, 3.0] ]
@@ -167,7 +167,7 @@ describe("GeoJSON Objects", function(){
                 it('must be an array of LineString coordinate arrays', function() {
                     
                     var invalidMutlineString = { 
-                        "type": "MultiLineString",
+                        "type": "multilinestring",
                         "coordinate": [
                           [ [100.0, 0.0], [101.0] ],
                           [ [102.0, 2.0], [103.0, 3.0] ]
@@ -182,7 +182,7 @@ describe("GeoJSON Objects", function(){
         describe('Polygon', function() {
             it('must be a valid Polygon Object', function() {
                 var validPolygon = {
-                    "type": "Polygon",
+                    "type": "polygon",
                     "coordinates": [
                         [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
                     ]
@@ -190,10 +190,10 @@ describe("GeoJSON Objects", function(){
                 assert(GSV.isPolygon(validPolygon));
             });
 
-            it('member type must be "Polygon"', function() {
+            it('member type must be "polygon"', function() {
 
                 var invalidPolygon = {
-                    "type": "polygon",
+                    "type": "Polygon",
                     "coordinates": [
                         [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
                     ]
@@ -203,7 +203,7 @@ describe("GeoJSON Objects", function(){
 
             it('must have a member with the name "coordinates"', function(){
                 var invalidPolygon = {
-                    "type": "Polygon",
+                    "type": "polygon",
                     "coordinate": [
                         [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
                     ]
@@ -214,7 +214,7 @@ describe("GeoJSON Objects", function(){
             describe("type coordinates", function(){
                 it('must be an array of LinearRing coordinate arrays', function() {
                     var invalidPolygon = {
-                        "type": "Polygon",
+                        "type": "polygon",
                         "coordinates": "test" 
                     };
                     assert.equal(false, GSV.isPolygon(invalidPolygon));
@@ -223,7 +223,7 @@ describe("GeoJSON Objects", function(){
                 describe('LinearRing', function() {
                     it('must be a LineString with 4 or more positions', function() {
                         var invalidPolygon = {
-                            "type": "Polygon",
+                            "type": "polygon",
                             "coordinates": [
                                 [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ],
                                 [ [100.0, 0.0],  [100.0, 1.0], [100.0, 0.0] ]
@@ -234,7 +234,7 @@ describe("GeoJSON Objects", function(){
 
                     it('The first and last positions must be equivalent (represent equivalent points)', function() {
                         var invalidPolygon = {
-                              "type": "Polygon",
+                              "type": "polygon",
                               "coordinates": [
                             [ [100.0, 1.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0] ]
                             ]
@@ -250,7 +250,7 @@ describe("GeoJSON Objects", function(){
 
             it('must be a valid MultiPolygon object', function() {
                 var validMultiPolygon = {
-                    "type": "MultiPolygon",
+                    "type": "multipolygon",
                     "coordinates": [
                     [[[102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0]]],
                     [[[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]],
@@ -260,7 +260,7 @@ describe("GeoJSON Objects", function(){
                 assert(GSV.isMultiPolygon(validMultiPolygon));
             });
 
-            it('member type must be "MultiPolygon"', function() {
+            it('member type must be "multipolygon"', function() {
 
                 var invalidMultiPolygon = {
                     "type": "multiPolygon",
@@ -277,7 +277,7 @@ describe("GeoJSON Objects", function(){
             it('must have a member with the name "coordinates"', function(){
 
                 var invalidMultiPolygon = {
-                    "type": "MultiPolygon",
+                    "type": "multipolygon",
                     "coordinate": [
                     [[[102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0]]],
                     [[[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]],
@@ -292,7 +292,7 @@ describe("GeoJSON Objects", function(){
                 it('must be an array of Polygon coordinate arrays', function() {
 
                     var invalidMultiPolygon = {
-                        "type": "MultiPolygon",
+                        "type": "multipolygon",
                         "coordinates": [
                         [[[102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0]]],
                         [[[100.0, 0.0], [101.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]],
@@ -309,14 +309,14 @@ describe("GeoJSON Objects", function(){
 
             it('must be a valid Geometry Collection Object', function() {
                 var validGeoCollection = {
-                    "type": "GeometryCollection",
+                    "type": "geometrycollection",
                     "geometries": [
                         {
-                            "type": "Point",
+                            "type": "point",
                             "coordinates": [100.0, 0.0]
                         },
                         {
-                            "type": "LineString",
+                            "type": "linestring",
                             "coordinates": [ [101.0, 0.0], [102.0, 1.0] ]
                         }
                      ]
@@ -324,16 +324,16 @@ describe("GeoJSON Objects", function(){
                 assert(GSV.isGeometryCollection(validGeoCollection));
             });
 
-            it('member type must be "GeometryCollection"', function() {
+            it('member type must be "geometrycollection"', function() {
                 var invalidGeoCollection = {
                     "type": "geometryCollection",
                     "geometries": [
                         {
-                            "type": "Point",
+                            "type": "point",
                             "coordinates": [100.0, 0.0]
                         },
                         {
-                            "type": "LineString",
+                            "type": "linestring",
                             "coordinates": [ [101.0, 0.0], [102.0, 1.0] ]
                         }
                      ]
@@ -343,14 +343,14 @@ describe("GeoJSON Objects", function(){
 
             it('must have a member with the name "geometries"', function() {
                 var invalidGeoCollection = {
-                    "type": "GeometryCollection",
+                    "type": "geometrycollection",
                     "geometrie": [
                         {
-                            "type": "Point",
+                            "type": "point",
                             "coordinates": [100.0, 0.0]
                         },
                         {
-                            "type": "LineString",
+                            "type": "linestring",
                             "coordinates": [ [101.0, 0.0], [102.0, 1.0] ]
                         }
                      ]
@@ -362,14 +362,14 @@ describe("GeoJSON Objects", function(){
                 it('must be an array of GeoJSON geometry object', function() {
                     
                     var invalidGeoCollection = {
-                        "type": "GeometryCollection",
+                        "type": "geometrycollection",
                         "geometries": [
                             {
-                                "type": "Point",
+                                "type": "point",
                                 "coordinates": [100.0, 0.0]
                             },
                             {
-                                "type": "LineString",
+                                "type": "linestring",
                                 "coordinates": [ [101.0], [102.0, 1.0] ]
                             }
                          ]
@@ -388,7 +388,7 @@ describe("GeoJSON Objects", function(){
             var validFeature =  {
                 "type": "Feature",
                 "geometry": {
-                    "type": "LineString",
+                    "type": "linestring",
                     "coordinates": [
                         [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
                     ]
@@ -407,7 +407,7 @@ describe("GeoJSON Objects", function(){
             var invalidFeature =  {
                 "type": "feature",
                 "geometry": {
-                    "type": "LineString",
+                    "type": "linestring",
                     "coordinates": [
                         [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
                     ]
@@ -424,7 +424,7 @@ describe("GeoJSON Objects", function(){
             var invalidFeature =  {
                 "type": "Feature",
                 "geometr": {
-                    "type": "LineString",
+                    "type": "linestring",
                     "coordinates": [
                         [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
                     ]
@@ -442,7 +442,7 @@ describe("GeoJSON Objects", function(){
                 var invalidFeature =  {
                     "type": "Feature",
                     "geometr": {
-                        "type": "LineString",
+                        "type": "linestring",
                         "coordinates": [
                             [102.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
                         ]
@@ -460,7 +460,7 @@ describe("GeoJSON Objects", function(){
             var invalidFeature =  {
                 "type": "Feature",
                 "geometry": {
-                    "type": "LineString",
+                    "type": "linestring",
                     "coordinates": [
                         [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
                     ]
@@ -482,13 +482,13 @@ describe("GeoJSON Objects", function(){
                 "features": [
                     {
                         "type": "Feature",
-                        "geometry": {"type": "Point", "coordinates": [102.0, 0.5]},
+                        "geometry": {"type": "point", "coordinates": [102.0, 0.5]},
                         "properties": {"prop0": "value0"}
                     },
                     {
                         "type": "Feature",
                         "geometry": {
-                            "type": "LineString",
+                            "type": "linestring",
                             "coordinates": [
                                 [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
                             ]
@@ -501,7 +501,7 @@ describe("GeoJSON Objects", function(){
                     {
                         "type": "Feature",
                         "geometry": {
-                            "type": "Polygon",
+                            "type": "polygon",
                             "coordinates": [
                                 [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0],
                                 [100.0, 1.0], [100.0, 0.0] ]
@@ -524,13 +524,13 @@ describe("GeoJSON Objects", function(){
                 "features": [
                     {
                         "type": "Feature",
-                        "geometry": {"type": "Point", "coordinates": [102.0, 0.5]},
+                        "geometry": {"type": "point", "coordinates": [102.0, 0.5]},
                         "properties": {"prop0": "value0"}
                     },
                     {
                         "type": "Feature",
                         "geometry": {
-                            "type": "LineString",
+                            "type": "linestring",
                             "coordinates": [
                                 [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
                             ]
@@ -543,7 +543,7 @@ describe("GeoJSON Objects", function(){
                     {
                         "type": "Feature",
                         "geometry": {
-                            "type": "Polygon",
+                            "type": "polygon",
                             "coordinates": [
                                 [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0],
                                 [100.0, 1.0], [100.0, 0.0] ]
@@ -565,13 +565,13 @@ describe("GeoJSON Objects", function(){
                 "feature": [
                     {
                         "type": "Feature",
-                        "geometry": {"type": "Point", "coordinates": [102.0, 0.5]},
+                        "geometry": {"type": "point", "coordinates": [102.0, 0.5]},
                         "properties": {"prop0": "value0"}
                     },
                     {
                         "type": "Feature",
                         "geometry": {
-                            "type": "LineString",
+                            "type": "linestring",
                             "coordinates": [
                                 [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
                             ]
@@ -584,7 +584,7 @@ describe("GeoJSON Objects", function(){
                     {
                         "type": "Feature",
                         "geometry": {
-                            "type": "Polygon",
+                            "type": "polygon",
                             "coordinates": [
                                 [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0],
                                 [100.0, 1.0], [100.0, 0.0] ]
@@ -607,13 +607,13 @@ describe("GeoJSON Objects", function(){
                     "features": [
                         {
                             "type": "Feature",
-                            "geometry": {"type": "Point", "coordinates": [102.0, 0.5]},
+                            "geometry": {"type": "point", "coordinates": [102.0, 0.5]},
                             "properties": {"prop0": "value0"}
                         },
                         {
                             "type": "Feature",
                             "geometry": {
-                                "type": "LineString",
+                                "type": "linestring",
                                 "coordinates": [
                                     [102.0, 0.0], [103.0, 1.0], [ 0.0], [105.0, 1.0]
                                 ]
@@ -626,7 +626,7 @@ describe("GeoJSON Objects", function(){
                         {
                             "type": "Feature",
                             "geometry": {
-                                "type": "Polygon",
+                                "type": "polygon",
                                 "coordinates": [
                                     [ [100.0, 0.0], [101.0, 0.0], [101.0, 1.0],
                                     [100.0, 1.0], [100.0, 0.0] ]
@@ -714,7 +714,7 @@ describe('Custom Checks', function(){
     });
 
     it('must check on the described element', function() {
-        GSV.define("Position", function(position){
+        GSV.define("position", function(position){
                 errors = [];
                 if(position[0] < -180 || position[0] > 180){
                     errors.push("the x must be between -180 and 180");
@@ -725,7 +725,7 @@ describe('Custom Checks', function(){
                 return errors;
         });
 
-        gj = {type: "Point", coordinates: [-200,3]};
+        gj = {type: "point", coordinates: [-200,3]};
         assert.equal(false, GSV.isPoint(gj));
 
     });

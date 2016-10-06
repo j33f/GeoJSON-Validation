@@ -1,8 +1,8 @@
-GeoJSON-Validation
-==================
+ES style GeoJson-Validation
+===========================
 
-**A GeoJSON Validation Library**  
-Check JSON objects to see whether or not they are valid GeoJSON. Validation is based off of the [GeoJSON Format Specification revision 1.0](http://geojson.org/geojson-spec.html#geojson-objects)
+**An es style GeoJSON Validation Library**  
+Check JSON objects to see whether or not they are valid GeoJSON as ElasticSearch want them. Validation is based off of the [GeoJSON Format Specification revision 1.0](http://geojson.org/geojson-spec.html#geojson-objects) + see [ElasticSearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/geo-shape.html#input-structure)
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -23,13 +23,13 @@ var validFeatureCollection = {
     "features": [
         {
             "type": "Feature",
-            "geometry": {"type": "Point", "coordinates": [102.0, 0.5]},
+            "geometry": {"type": "point", "coordinates": [102.0, 0.5]},
             "properties": {"prop0": "value0"}
         },
         {
             "type": "Feature",
             "geometry": {
-                "type": "LineString",
+                "type": "linestring",
                 "coordinates": [
                     [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
                 ]
@@ -50,7 +50,7 @@ if(GJV.valid(validFeatureCollection)){
 var invalidFeature =  {
     "type": "feature",
     "geometry": {
-        "type": "LineString",
+        "type": "Linestring",
         "coordinates": [
             [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
         ]
@@ -200,7 +200,7 @@ Checks if an object is a [Bounding Box](http://geojson.org/geojson-spec.html#bou
 
 
 ### Define(type, function)
-Define a Custom Validation for the give `type`. `type` can be "Feature", "FeatureCollection", "Point", "MultiPoint", "LineString", "MultiLineString", "Polygon", "MultiPolygon", "GeometryCollection", "Bbox", "Position", "GeoJSON" or "GeometryObject". 
+Define a Custom Validation for the give `type`. `type` can be "Feature", "FeatureCollection", "point", "MultiPoint", "linestring", "MultiLineString", "Polygon", "MultiPolygon", "GeometryCollection", "Bbox", "Position", "GeoJSON" or "GeometryObject". 
 
 The `function` is passed the `object` being validated and should return a `string` or an `array` of  strings representing errors. If there are no errors then the function should not return anything or an empty array. See the [example](#define-example) for more.
 
@@ -211,7 +211,7 @@ Shout out to [@VitoLau](https://github.com/VitoLau>) for the code for this examp
 ```javascript
 GJV = require("geojson-validation");
 
-GJV.define("Position", function(position){
+GJV.define("position", function(position){
     //the postion must be valid point on the earth, x between -180 and 180
     errors = [];
     if(position[0] < -180 || position[0] > 180){
@@ -224,7 +224,7 @@ GJV.define("Position", function(position){
 
 });
 
-gj = {type: "Point", coordinates: [-200,3]};
+gj = {type: "point", coordinates: [-200,3]};
 //returns false
 GJV.isPoint(gj);
 ```

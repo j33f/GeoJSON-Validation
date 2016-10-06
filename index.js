@@ -128,7 +128,7 @@
         }
 
         //run custom checks
-        errors = errors.concat(_customDefinitions("Position", position));
+        errors = errors.concat(_customDefinitions("position", position));
 
         return _done(cb, errors);
     };
@@ -153,7 +153,7 @@
             }else if(geo_types[geoJSONObject.type]){
                 return geo_types[geoJSONObject.type](geoJSONObject, cb);
             }else{
-                errors.push('type must be one of: "Point", "MultiPoint", "LineString", "MultiLineString", "Polygon", "MultiPolygon", "GeometryCollection", "Feature", or "FeatureCollection"');
+                errors.push('type must be one of: "point", "multipoint", "linestring", "multilinestring", "polygon", "multipolygon", "geometrycollection", "Feature", or "FeatureCollection"');
             }
         }else{
             errors.push("must have a member with the name 'type'");
@@ -183,7 +183,7 @@
             if(geo_types[geometryObject.type]){
                 return geo_types[geometryObject.type](geometryObject, cb);
             }else{
-                errors.push('type must be one of: "Point", "MultiPoint", "LineString", "MultiLineString", "Polygon", "MultiPolygon" or "GeometryCollection"');
+                errors.push('type must be one of: "point", "multipoint", "linestring", "multilinestring", "polygon", "multipolygon" or "geometrycollection"');
             }
         }else{
             errors.push("must have a member with the name 'type'");
@@ -218,7 +218,7 @@
         }
 
         if('type' in point){
-            if(point.type !== "Point"){
+            if(point.type !== "point"){
                 errors.push("type must be 'Point'");
             }
         }else{
@@ -236,7 +236,7 @@
         }
 
         //run custom checks
-        errors = errors.concat(_customDefinitions("Point", point));
+        errors = errors.concat(_customDefinitions("point", point));
 
         return _done(cb, errors);
     };
@@ -293,7 +293,7 @@
         }
 
         if('type' in multiPoint){
-            if(multiPoint.type !== "MultiPoint"){
+            if(multiPoint.type !== "multipoint"){
                 errors.push("type must be 'MultiPoint'");
             }
         }else{
@@ -311,7 +311,7 @@
         }
 
         //run custom checks
-        errors = errors.concat(_customDefinitions("MultiPoint", multiPoint));
+        errors = errors.concat(_customDefinitions("multipoint", multiPoint));
 
         return _done(cb, errors);
     };
@@ -372,7 +372,7 @@
         }
 
         if('type' in lineString){
-            if(lineString.type !== "LineString"){
+            if(lineString.type !== "linestring"){
                 errors.push("type must be 'LineString'");
             }
         }else{
@@ -390,7 +390,7 @@
         }
 
         //run custom checks
-        errors = errors.concat(_customDefinitions("LineString", lineString));
+        errors = errors.concat(_customDefinitions("linestring", lineString));
 
         return _done(cb, errors);
     };
@@ -445,7 +445,7 @@
         }
 
         if('type' in multilineString){
-            if(multilineString.type !== "MultiLineString"){
+            if(multilineString.type !== "multilinestring"){
                 errors.push("type must be 'MultiLineString'");
             }
         }else{
@@ -463,7 +463,7 @@
         }
 
         //run custom checks
-        errors = errors.concat(_customDefinitions("MultiPoint", multilineString));
+        errors = errors.concat(_customDefinitions("multipoint", multilineString));
 
         return _done(cb, errors);
     };
@@ -562,7 +562,7 @@
         }
 
         if('type' in polygon){
-            if(polygon.type !== "Polygon"){
+            if(polygon.type !== "polygon"){
                 errors.push("type must be 'Polygon'");
             }
         }else{
@@ -580,7 +580,7 @@
         }
 
         //run custom checks
-        errors = errors.concat(_customDefinitions("Polygon", polygon));
+        errors = errors.concat(_customDefinitions("polygon", polygon));
 
         return _done(cb, errors);
     };
@@ -636,7 +636,7 @@
         }
 
         if('type' in multiPolygon){
-            if(multiPolygon.type !== "MultiPolygon"){
+            if(multiPolygon.type !== "multipolygon"){
                 errors.push("type must be 'MultiPolygon'");
             }
         }else{
@@ -654,7 +654,7 @@
         }
 
         //run custom checks
-        errors = errors.concat(_customDefinitions("MultiPolygon", multiPolygon));
+        errors = errors.concat(_customDefinitions("multipolygon", multiPolygon));
 
         return _done(cb, errors);
     };
@@ -683,7 +683,7 @@
         }
 
         if('type' in geometryCollection){
-            if(geometryCollection.type !== "GeometryCollection"){
+            if(geometryCollection.type !== "geometrycollection"){
                 errors.push("type must be 'GeometryCollection'");
             }
         }else{
@@ -710,7 +710,7 @@
         }
 
         //run custom checks
-        errors = errors.concat(_customDefinitions("GeometryCollection", geometryCollection));
+        errors = errors.concat(_customDefinitions("geometrycollection", geometryCollection));
 
         return _done( cb, errors);
     };
@@ -842,7 +842,7 @@
         }
 
         //run custom checks
-        errors = errors.concat(_customDefinitions("Bbox", bbox));
+        errors = errors.concat(_customDefinitions("bbox", bbox));
 
         _done(cb,errors);
     };
@@ -853,27 +853,27 @@
     },
 
     geo_types = {
-        "Point": exports.isPoint,
-        "MultiPoint": exports.isMultiPoint,
-        "LineString": exports.isLineString,
-        "MultiLineString": exports.isMultiLineString,
-        "Polygon": exports.isPolygon,
-        "MultiPolygon": exports.isMultiPolygon,
-        "GeometryCollection": exports.isGeometryCollection,
+        "point": exports.isPoint,
+        "multipoint": exports.isMultiPoint,
+        "linestring": exports.isLineString,
+        "multilinestring": exports.isMultiLineString,
+        "polygon": exports.isPolygon,
+        "multipolygon": exports.isMultiPolygon,
+        "geometrycollection": exports.isGeometryCollection,
     },
 
     all_types = {
         "Feature": exports.isFeature,
         "FeatureCollection": exports.isFeatureCollection,
-        "Point": exports.isPoint,
-        "MultiPoint": exports.isMultiPoint,
-        "LineString": exports.isLineString,
-        "MultiLineString": exports.isMultiLineString,
-        "Polygon": exports.isPolygon,
-        "MultiPolygon": exports.isMultiPolygon,
-        "GeometryCollection": exports.isGeometryCollection,
-        "Bbox": exports.isBox,
-        "Position": exports.isPosition,
+        "point": exports.isPoint,
+        "multipoint": exports.isMultiPoint,
+        "linestring": exports.isLineString,
+        "multilinestring": exports.isMultiLineString,
+        "polygon": exports.isPolygon,
+        "multipolygon": exports.isMultiPolygon,
+        "geometrycollection": exports.isGeometryCollection,
+        "bbox": exports.isBox,
+        "position": exports.isPosition,
         "GeoJSON": exports.isGeoJSONObject,
         "GeometryObject": exports.isGeometryObject
     };
